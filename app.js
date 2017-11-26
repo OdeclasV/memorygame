@@ -2,14 +2,14 @@
 
 var cards = [
 
-    {card: 1, draw: "dog"},
-    {card: 2, draw: "dog"},
-    {card: 3, draw: "tree"},
-    {card: 4, draw: "tree"},
-    {card: 5, draw: "book"},
-    {card: 6, draw: "book"},
-    {card: 7, draw: "tv"},
-    {card: 8, draw: "tv"}
+    {draw: "dog"},
+    {draw: "dog"},
+    {draw: "tree"},
+    {draw: "tree"},
+    {draw: "book"},
+    {draw: "book"},
+    {draw: "tv"},
+    {draw: "tv"}
 
     ]
 
@@ -21,27 +21,31 @@ function Shuffle(array) {
 };
 
 
-function compareChoices (cardNumber1, cardNumber2) {
+function compareChoices (choice1, choice2) {
 
 /* 
  * Compares two user choices. 
- * Takes two cards numbers are input. 
- * Outputs a string noting if the cards match or don't match
+ * Takes user choices as inputs.
+ * Outputs True if the choices match.
  */
-	var choice1 = cards[cardNumber1 - 1].draw;
-	var choice2 = cards[cardNumber2 - 1].draw;
-	
-	if (choice1 === choice2) {
-		return "They match!";
-	} 
-	else {
-		return "Cards don't match. Try again.";
-	}
+	return choice1 === choice2;
 
 }
 
+function dealCard () {
+	cards.forEach(function(card){
 
-// function choiceOne (card_number) {
-// 	var choice1 = cards[card_number - 1].draw; 
-// 	return choice1;
-// };
+		console.log(card)
+	});
+}
+
+// use modulo of % 3
+// onclick to tds.
+// tds should have class of name of the card
+// on click gets the class of the card and puts it in a variable
+// after two clicks, compareChoices is ran
+// add ids to tds as well. Maybe the ids would have the indexes of the elements in array cards 
+// 
+
+Shuffle(cards);
+dealCard();
