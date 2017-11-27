@@ -40,11 +40,11 @@ function dealCard () {
 	cards.forEach(function(card, index){
 		if( index < 4 ) {
 
-			tdAcc1 += '<td id=" ' + index +' ">'+ card.draw + '</td>'
+			tdAcc1 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>'
 
 		} else {
 
-			tdAcc2 += '<td id=" ' + index +' ">'+ card.draw + '</td>'
+			tdAcc2 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>'
 		}
 
 		console.log(card)
@@ -55,6 +55,11 @@ function dealCard () {
 
 	table.append(tr1)
 	table.append(tr2)
+}
+
+
+function showCard(elm) {
+	console.log(elm)
 }
 
 Shuffle(cards);
