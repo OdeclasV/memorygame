@@ -33,19 +33,29 @@ function compareChoices (choice1, choice2) {
 }
 
 function dealCard () {
-	cards.forEach(function(card){
+	var table = $('#cards_matrix tbody');
+	var tdAcc1 = '';
+	var tdAcc2 = '';
+
+	cards.forEach(function(card, index){
+		if( index < 4 ) {
+
+			tdAcc1 += '<td id=" ' + index +' ">'+ card.draw + '</td>'
+
+		} else {
+
+			tdAcc2 += '<td id=" ' + index +' ">'+ card.draw + '</td>'
+		}
 
 		console.log(card)
-	});
-}
+	})
 
-// use modulo of % 3
-// onclick to tds.
-// tds should have class of name of the card
-// on click gets the class of the card and puts it in a variable
-// after two clicks, compareChoices is ran
-// add ids to tds as well. Maybe the ids would have the indexes of the elements in array cards 
-// 
+	var tr1 = '<tr>' + tdAcc1 + '</tr>';
+	var tr2 = '<tr>' + tdAcc2 + '</tr>';
+
+	table.append(tr1)
+	table.append(tr2)
+}
 
 Shuffle(cards);
 dealCard();
