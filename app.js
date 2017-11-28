@@ -20,46 +20,47 @@ function Shuffle(array) {
 	return array;
 };
 
-
-function compareChoices (choice1, choice2) {
-
-/* 
- * Compares two user choices. 
- * Takes user choices as inputs.
- * Outputs True if the choices match.
- */
-	return choice1 === choice2;
-
-}
+// passes in each in the deck to a table for rendering.
+// takes no inputs.
+// creates table rows and elements for each card as outputs.
 
 function dealCard () {
-	var table = $('#cards_matrix tbody');
-	var tdAcc1 = '';
-	var tdAcc2 = '';
+	var table = $('#cards_matrix tbody'); // selects the body of the table
+	var tdLine1 = '';
+	var tdLine2 = '';
 
 	cards.forEach(function(card, index){
-		if( index < 4 ) {
+		if( index < 4 ) {  // conditional to evaluate when to stop creating tds and when to create a new row
 
-			tdAcc1 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>'
+			// four tds are created, from indexes 0 to 3 
+			// tds have their index as id and their value as class 
+			tdLine1 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
 
 		} else {
 
-			tdAcc2 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>'
+			// when above condtion is not met, four indexes are created, fom 4 to 7
+			// tds have their index as id and their value as class 
+			tdLine2 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
 		}
 
-		console.log(card)
+		console.log(card);
 	})
 
-	var tr1 = '<tr>' + tdAcc1 + '</tr>';
-	var tr2 = '<tr>' + tdAcc2 + '</tr>';
+	// creates two rows in the table
+	var tr1 = '<tr>' + tdLine1 + '</tr>';
+	var tr2 = '<tr>' + tdLine2 + '</tr>';
 
-	table.append(tr1)
-	table.append(tr2)
+	table.append(tr1);
+	table.append(tr2);
 }
 
 
+// shows value of card in the page when the element is clicked
+// takes an argument as input
+// console.logs the value of the card, its class, as the output
 function showCard(elm) {
-	console.log(elm)
+	elm.innerHTML = elm.getAttribute('class');
+	console.log(elm);
 }
 
 Shuffle(cards);
