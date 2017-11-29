@@ -10,32 +10,54 @@ var matches = [];
 
 var cards = [
 
-    {draw: "dog"},
-    {draw: "dog"},
-    {draw: "tree"},
-    {draw: "tree"},
-    {draw: "book"},
-    {draw: "book"},
-    {draw: "tv"},
-    {draw: "tv"}
+{draw: "dog"},
+{draw: "dog"},
+{draw: "tree"},
+{draw: "tree"},
+{draw: "book"},
+{draw: "book"},
+{draw: "tv"},
+{draw: "tv"},
+{draw: "house"},
+{draw: "house"},
+{draw: "car"},
+{draw: "car"},
+{draw: "glass"},
+{draw: "glass"},
+{draw: "bike"},
+{draw: "bike"}
 
-    ];
+];
 
 // shuffle deck of cards
 
 function Shuffle(array) {
 	for(var j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
-	return array;
+		return array;
 }
+
+
+function startGame() {
+	var startButton = $('#buttons');
+	startButton.on('click', function(){
+		$('.start').innerHTML('test')
+	})}
+
 
 // passes in each in the deck to a table for rendering.
 // takes no inputs.
 // creates table rows and elements for each card as outputs.
 
 function dealCard () {
+
+	Shuffle(cards);
+	stopWatch();
+
 	var table = $('#cards_matrix tbody'); // selects the body of the table
 	var tdLine1 = '';
 	var tdLine2 = '';
+	var tdLine3 = '';
+	var tdLine4 = '';
 
 	cards.forEach(function(card, index){
 		if( index < 4 ) {  // conditional to evaluate when to stop creating tds and when to create a new row
@@ -44,11 +66,18 @@ function dealCard () {
 			// tds have their index as id and their value as class 
 			tdLine1 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
 
-		} else {
+		} else if( index < 8) {
 
 			// when above condtion is not met, four indexes are created, fom 4 to 7
 			// tds have their index as id and their value as class 
 			tdLine2 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+
+		} else if (index < 12) {
+
+			tdLine3 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+		} else {
+
+			tdLine4 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
 		}
 
 		console.log(card);
@@ -57,9 +86,14 @@ function dealCard () {
 	// creates two rows in the table
 	var tr1 = '<tr>' + tdLine1 + '</tr>';
 	var tr2 = '<tr>' + tdLine2 + '</tr>';
+	var tr3 = '<tr>' + tdLine3 + '</tr>';
+	var tr4 = '<tr>' + tdLine4 + '</tr>';
+
 
 	table.append(tr1);
 	table.append(tr2);
+	table.append(tr3);
+	table.append(tr4);
 }
 
 
@@ -68,6 +102,7 @@ function dealCard () {
 // console.logs the value of the card, its class, as the output
 
 function showCard(elm) {
+	console.log(elm)
 
 	if (choice1 === null) {
 		choice1 = elm;
@@ -81,9 +116,6 @@ function showCard(elm) {
 				// creates var id1 and id2 to get ids of each element
 				var id1 = choice1.getAttribute('id');
 				var id2 = choice2.getAttribute('id');
-				console.log("here are the ids");				
-				console.log(id1);
-				console.log(id2);
 
 				// evaluates ids of each element
 				// when ids are different,
@@ -94,18 +126,37 @@ function showCard(elm) {
 
 					matches.push(choice1.innerHTML);
 					matches.push(choice2.innerHTML);
-					if (matches.length === cards.length) {
-						console.log('game over')
+
+					// preventing user clicks on same card
+					// and having program accept that as choice
+					choice1.onclick = null;
+					choice2.onclick = null;
+
+				} 
+
+				choice1 = null;
+				choice2 = null;
+
+			} else {
+				var t = setTimeout(function(){
+
+					// confirming that choice1 and choice2
+					// are not null
+					if( choice1 && choice2 ) {
+
+						choice1.innerHTML = '{ secret }';
+						choice2.innerHTML = '{ secret }';
+						choice1 = null;
+						choice2 = null;
 					}
-				}
-		
-		choice1 = null;
-		choice2 = null;
+
+				}, 800);
 
 			}
 
-	} else {
-		
+
+		} else {
+
 		// converts element back to secret
 		// user tries again 
 		choice1.innerHTML = '{ secret }';
@@ -114,15 +165,15 @@ function showCard(elm) {
 		choice2 = null;
 
 	}
-	// console.log("here's the completed array")
-	// console.log(matches)
+	
+	if (matches.length === cards.length) {
+		console.log(matches);
+		console.log('game over');
+		clearInterval(timerId);
+
+
+	}
 
 }
 
-if (matches.length === cards.length) {
-	console.log('game over');
-	console.log(matches);
-}
-Shuffle(cards);
-dealCard();
 
