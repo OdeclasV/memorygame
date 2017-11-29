@@ -1,9 +1,10 @@
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
 var timerId = null;
 
-function stopWatch () {
 
-var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
+function startWatch () {
+
         var totalSeconds = 0;
         timerId = setInterval(setTime, 1000);
 
@@ -26,4 +27,10 @@ var minutesLabel = document.getElementById("minutes");
                 return valString;
             }
         }
+}
+
+function resetWatch() {
+    // para reloj
+    // poner labels en 00
+    // reiniciar clearInterval(timerId)
 }

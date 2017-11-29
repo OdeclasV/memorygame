@@ -6,6 +6,18 @@ td {
 	width: 100px;
 	height: 100px;
 	background-color: purple;
+	font-size: 30px;
 }
+
+td.tv {
+/*	folder dentro de mi directorio */
+	background-image: "";
+
+}
+
+td.hidden {
+	color: purple;
+}
+
 
 

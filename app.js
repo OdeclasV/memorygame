@@ -51,9 +51,13 @@ function startGame() {
 function dealCard () {
 
 	Shuffle(cards);
-	stopWatch();
+	resetWatch();
+
+	startWatch();
+	
 
 	var table = $('#cards_matrix tbody'); // selects the body of the table
+	table.empty();
 	var tdLine1 = '';
 	var tdLine2 = '';
 	var tdLine3 = '';
@@ -64,20 +68,20 @@ function dealCard () {
 
 			// four tds are created, from indexes 0 to 3 
 			// tds have their index as id and their value as class 
-			tdLine1 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+			tdLine1 += '<td id=" ' + index + ' "class="hidden '+ card.draw + '" onclick="showCard(this)">' + card.draw + '</td>';
 
 		} else if( index < 8) {
 
 			// when above condtion is not met, four indexes are created, fom 4 to 7
 			// tds have their index as id and their value as class 
-			tdLine2 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+			tdLine2 += '<td id=" ' + index + ' "class="hidden '+ card.draw + '" onclick="showCard(this)">' + card.draw + '</td>';
 
 		} else if (index < 12) {
 
-			tdLine3 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+			tdLine3 += '<td id=" ' + index + ' "class="hidden '+ card.draw + '" onclick="showCard(this)">' + card.draw + '</td>';
 		} else {
 
-			tdLine4 += '<td id=" ' + index + ' "class="'+ card.draw + '" onclick="showCard(this)">{ secret }</td>';
+			tdLine4 += '<td id=" ' + index + ' "class="hidden '+ card.draw + '" onclick="showCard(this)">' + card.draw + '</td>';
 		}
 
 		console.log(card);
@@ -102,15 +106,14 @@ function dealCard () {
 // console.logs the value of the card, its class, as the output
 
 function showCard(elm) {
-	console.log(elm)
 
 	if (choice1 === null) {
 		choice1 = elm;
-		choice1.innerHTML = elm.getAttribute('class');
+		choice1.classList.remove('hidden');
 
 	} else if (choice2 === null) {
 		choice2 = elm;
-		choice2.innerHTML = elm.getAttribute('class');
+		choice2.classList.remove('hidden');
 			// evaluates if value of choice1 and choice2 are the same
 			if (choice1.innerHTML === choice2.innerHTML) {
 				// creates var id1 and id2 to get ids of each element
@@ -144,8 +147,8 @@ function showCard(elm) {
 					// are not null
 					if( choice1 && choice2 ) {
 
-						choice1.innerHTML = '{ secret }';
-						choice2.innerHTML = '{ secret }';
+						choice1.classList.add('hidden');
+						choice2.classList.add('hidden');
 						choice1 = null;
 						choice2 = null;
 					}
@@ -159,8 +162,8 @@ function showCard(elm) {
 
 		// converts element back to secret
 		// user tries again 
-		choice1.innerHTML = '{ secret }';
-		choice2.innerHTML = '{ secret }';
+		choice1.classList.add('hidden');
+		choice2.classList.add('hidden');
 		choice1 = null;
 		choice2 = null;
 
@@ -169,11 +172,11 @@ function showCard(elm) {
 	if (matches.length === cards.length) {
 		console.log(matches);
 		console.log('game over');
+		// cambiar nombre de start button for reset button. Cambiar innerHTML
 		clearInterval(timerId);
 
 
 	}
 
 }
-
 
