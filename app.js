@@ -1,3 +1,11 @@
+// choice1 and choice2 variables
+// used inside showCard function
+// to know users clicked choice
+
+var choice1 = null;
+var choice2 = null;
+
+
 // Array cards containting deck of cards and their illustrations
 
 var cards = [
@@ -11,14 +19,14 @@ var cards = [
     {draw: "tv"},
     {draw: "tv"}
 
-    ]
+    ];
 
 // shuffle deck of cards
 
 function Shuffle(array) {
 	for(var j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
 	return array;
-};
+}
 
 // passes in each in the deck to a table for rendering.
 // takes no inputs.
@@ -44,7 +52,7 @@ function dealCard () {
 		}
 
 		console.log(card);
-	})
+	});
 
 	// creates two rows in the table
 	var tr1 = '<tr>' + tdLine1 + '</tr>';
@@ -56,12 +64,51 @@ function dealCard () {
 
 
 // shows value of card in the page when the element is clicked
-// takes an argument as input
+// takes an elementg as input
 // console.logs the value of the card, its class, as the output
+
 function showCard(elm) {
-	elm.innerHTML = elm.getAttribute('class');
-	console.log(elm);
+
+	if (choice1 === null) {
+		choice1 = elm;
+		choice1.innerHTML = elm.getAttribute('class');
+
+	} else if (choice2 === null) {
+		choice2 = elm;
+		choice2.innerHTML = elm.getAttribute('class');
+			// evaluates if value of choice1 and choice2 are the same
+			if (choice1.innerHTML === choice2.innerHTML) {
+				// creates var id1 and id2 to get ids of each element
+				var id1 = choice1.getAttribute('id');
+				var id2 = choice2.getAttribute('id');
+
+				// evaluates ids of each element
+				// when ids are different,
+				// and classes are similar
+				// elements are equal
+				if (id1 != id2) {
+					var matches = []
+				}
+
+			choice1 = null;
+			choice2 = null;
+
+			}
+
+	} else {
+		
+		// converts element back to secret
+		// user tries again 
+		choice1.innerHTML = '{ secret }';
+		choice2.innerHTML = '{ secret }';
+
+		choice1 = null;
+		choice2 = null;
+
+	}
+
 }
+
 
 Shuffle(cards);
 dealCard();
