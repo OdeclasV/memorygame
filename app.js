@@ -4,7 +4,7 @@
 
 var choice1 = null;
 var choice2 = null;
-
+var matches = [];
 
 // Array cards containting deck of cards and their illustrations
 
@@ -81,17 +81,26 @@ function showCard(elm) {
 				// creates var id1 and id2 to get ids of each element
 				var id1 = choice1.getAttribute('id');
 				var id2 = choice2.getAttribute('id');
+				console.log("here are the ids");				
+				console.log(id1);
+				console.log(id2);
 
 				// evaluates ids of each element
 				// when ids are different,
 				// and classes are similar
 				// elements are equal
-				if (id1 != id2) {
-					var matches = []
-				}
 
-			choice1 = null;
-			choice2 = null;
+				if (id1 != id2) {
+
+					matches.push(choice1.innerHTML);
+					matches.push(choice2.innerHTML);
+					if (matches.length === cards.length) {
+						console.log('game over')
+					}
+				}
+		
+		choice1 = null;
+		choice2 = null;
 
 			}
 
@@ -101,14 +110,19 @@ function showCard(elm) {
 		// user tries again 
 		choice1.innerHTML = '{ secret }';
 		choice2.innerHTML = '{ secret }';
-
 		choice1 = null;
 		choice2 = null;
 
 	}
+	// console.log("here's the completed array")
+	// console.log(matches)
 
 }
 
-
+if (matches.length === cards.length) {
+	console.log('game over');
+	console.log(matches);
+}
 Shuffle(cards);
 dealCard();
+
