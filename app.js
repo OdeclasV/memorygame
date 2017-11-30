@@ -37,12 +37,6 @@ function Shuffle(array) {
 }
 
 
-function startGame() {
-	var startButton = $('#buttons');
-	startButton.on('click', function(){
-		$('.start').innerHTML('test')
-	})}
-
 
 // passes in each in the deck to a table for rendering.
 // takes no inputs.
